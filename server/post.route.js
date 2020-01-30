@@ -4,7 +4,9 @@ const postRoutes = express.Router();
 // Require Post model in our routes module
 let Post = require('./post.model');
 
-// Defined store route
+
+
+// CREATE 
 postRoutes.route('/add').post(function (req, res) {
   let post = new Post(req.body);
   post.save()
@@ -16,7 +18,9 @@ postRoutes.route('/add').post(function (req, res) {
     });
 });
 
-// Defined get data(index or listing) route
+
+
+// READ
 postRoutes.route('/').get(function (req, res) {
     Post.find(function(err, posts){
     if(err){
@@ -28,7 +32,16 @@ postRoutes.route('/').get(function (req, res) {
   });
 });
 
-// Defined edit route
+
+// READ
+postRoutes.route('/dbdump').get(function (req, res) {
+  Post.find({}, function (err, docs) {
+    res.json(docs);
+ });
+});
+
+
+// Route to edit
 postRoutes.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
   Post.findById(id, function (err, post){
@@ -39,7 +52,8 @@ postRoutes.route('/edit/:id').get(function (req, res) {
   });
 });
 
-//  Defined update route
+
+//  UPDATE
 postRoutes.route('/update/:id').post(function (req, res) {
     Post.findById(req.params.id, function(err, post) {
     if (!post)
@@ -57,7 +71,7 @@ postRoutes.route('/update/:id').post(function (req, res) {
   });
 });
 
-// Defined delete | remove | destroy route
+// DELETE
 postRoutes.route('/delete/:id').delete(function (req, res) {
     Post.findByIdAndRemove({_id: req.params.id}, function(err){
         if(err) res.json(err);
@@ -67,5 +81,7 @@ postRoutes.route('/delete/:id').delete(function (req, res) {
         });
     });
 });
+
+
 
 module.exports = postRoutes;
