@@ -61,7 +61,10 @@ postRoutes.route('/update/:id').post(function (req, res) {
 postRoutes.route('/delete/:id').delete(function (req, res) {
     Post.findByIdAndRemove({_id: req.params.id}, function(err){
         if(err) res.json(err);
-        else res.json('Successfully removed');
+        Post.find(function(err, posts){
+          if(err) res.json(err);
+          else res.json(posts);
+        });
     });
 });
 
