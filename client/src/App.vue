@@ -2,7 +2,7 @@
 
 <template>
   <div class="container">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm ">
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link to="/" class="nav-link">Home</router-link>
@@ -15,7 +15,13 @@
         </li>
       </ul>
     </nav><br />
-    <transition name="fade">
+    <transition 
+      name="fade"
+      mode="out-in"
+      @beforeLeave="beforeLeave"
+      @enter="enter"
+      @afterEnter="afterEnter"
+    >
       <router-view></router-view>
     </transition>
   </div>
@@ -23,15 +29,44 @@
 
 <style>
     .fade-enter-active, .fade-leave-active {
-      transition: opacity .5s
-    }
-    .fade-enter, .fade-leave-active {
-      opacity: 0
-    }
+  transition-property: opacity;
+  transition-duration: .2s;
+}
+
+.fade-enter-active {
+  transition-delay: .2s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
 </style>
 
 <script>
 
-    export default{
-    }
+    export default {
+  name: 'App',
+  data() {
+    return {
+      prevHeight: 0,
+    };
+  },
+  methods: {
+    beforeLeave(element) {
+      this.prevHeight = getComputedStyle(element).height;
+    },
+    enter(element) {
+      const { height } = getComputedStyle(element);
+
+      element.style.height = this.prevHeight;
+
+      setTimeout(() => {
+        element.style.height = height;
+      });
+    },
+    afterEnter(element) {
+      element.style.height = 'auto';
+    },
+  },
+};
 </script>
