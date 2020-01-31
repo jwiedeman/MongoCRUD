@@ -1,18 +1,16 @@
 // App.vue
 
 <template>
-  <div class="container">
-    <nav class="navbar navbar-expand-sm ">
+  <div class="">
+    <nav class="navbar navbar-expand-sm bg-dark ">
       <ul class="navbar-nav">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link">Home</router-link>
+        <li class=" btn btn-secondary ">
+          <router-link to="/" class="nav-link text-light">DB Items</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/create" class="nav-link">Create Post</router-link>
+        <li class=" btn btn-secondary">
+          <router-link to="/create" class="nav-link text-light">Create Item</router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/posts" class="nav-link">Posts</router-link>
-        </li>
+        
       </ul>
     </nav><br />
     <transition 
@@ -30,11 +28,7 @@
 <style>
     .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
-  transition-duration: .2s;
-}
-
-.fade-enter-active {
-  transition-delay: .2s;
+  transition-duration: .15s;
 }
 
 .fade-enter, .fade-leave-active {

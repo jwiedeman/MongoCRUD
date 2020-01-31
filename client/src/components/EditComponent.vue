@@ -1,15 +1,23 @@
 <template>
   <div>
-    <h1>Edit Post</h1>
+    <h1>Edit Item</h1>
+    <p class='text-muted'></p>
     <form @submit.prevent="updatePost">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
-            <label>Post Title: </label>
+            <label>Item Title: </label>
             <input type="text" class="form-control" v-model="post.title">
           </div>
         </div>
+            <div class="col-md-6">
+          <div class="form-group">
+            <label>Item _id: </label><p class='font-weight-light'>probably just never modify this :)</p>
+            <input type="text" class="form-control" v-model="post._id">
+          </div>
         </div>
+        </div>
+        
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">

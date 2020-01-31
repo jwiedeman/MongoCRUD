@@ -62,6 +62,10 @@ export default {
             let uri = 'http://localhost:4000/posts/add';
             console.log(this.post)
             this.post != {} ? this.axios.post(uri, this.post) : console.log('I require data')
+            this.post = {
+                title: '',
+                body: ''
+            }
         },
         validateForm() {
 

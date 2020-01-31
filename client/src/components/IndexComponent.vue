@@ -12,7 +12,7 @@
     
                 </form>
             </div>
-            
+    
         </div><br />
     
     
@@ -32,18 +32,18 @@
             </thead>
             <tbody>
                 <template v-for="(post) in filtered_posts">
-                    <tr  :key="post._id" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
-                      <td>{{ post.title }}</td>
-                      <td>{{post._id}}</td>
-                      <td>{{ post.body }}</td>
-                      <td><button><router-link :to="{name: 'edit', params: { id: post._id }}" class="btn btn-sm btn-light">Edit</router-link></button></td>
-                      <td ><button class="btn-sm btn-danger" @click.prevent="deletePost(post._id)">Delete</button></td>
-                      <td><button class="btn-sm btn-light" @click="toggle(post._id)" :class="{ opened: opened.includes(post._id) }">View Data</button></td>
-                    </tr>
-                  
-                    <tr class='bg-light ' v-if="opened.includes(post._id)" :key="post._id">
-                      <td colspan="6">{{post}}</td>
-                    </tr>
+                        <tr  :key="post._id" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                          <td>{{ post.title }}</td>
+                          <td>{{post._id}}</td>
+                          <td>{{ post.body }}</td>
+                          <td><router-link :to="{name: 'edit', params: { id: post._id }}" class="btn btn-sm btn-dark">Edit</router-link></td>
+                          <td ><button class=" btn btn-sm btn-danger" @click.prevent="deletePost(post._id)">Delete</button></td>
+                          <td><button class=" btn btn-sm btn-dark" @click="toggle(post._id)" :class="{ opened: opened.includes(post._id) }">View Data</button></td>
+                        </tr>
+                      
+                        <tr class='bg-light ' v-if="opened.includes(post._id)" :key="post._id">
+                          <td colspan="6">{{post}}</td>
+                        </tr>
 </template>
             </tbody>
             
@@ -81,7 +81,7 @@ export default {
             }
         },
         forceRerender() {
-        
+
             this.componentKey += 1;
         },
         onChange() {
@@ -137,7 +137,7 @@ export default {
                 this.posts = response.data;
                 this.onChange()
             }).then(this.filterResults()) // refill the sorted list, then rerender
-            console.log(this.posts , this.filtered_posts)
+            console.log(this.posts, this.filtered_posts)
         }
     },
     watch: {
