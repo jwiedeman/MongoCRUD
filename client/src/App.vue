@@ -2,13 +2,13 @@
 
 <template>
   <div class="">
-    <nav class="navbar navbar-expand-sm bg-dark ">
+    <nav class=" navbar-expand-sm navbar navbar-dark ">
       <ul class="navbar-nav">
-        <li class=" btn btn-secondary ">
-          <router-link to="/" class="nav-link text-light">DB Items</router-link>
+        <li class=" ">
+          <router-link to="/" class="nav-link text-light bg-dark mr-2">DB Items</router-link>
         </li>
-        <li class=" btn btn-secondary">
-          <router-link to="/create" class="nav-link text-light">Create Item</router-link>
+        <li class="">
+          <router-link to="/create" class="nav-link text-light bg-dark mr-2">Create Item</router-link>
         </li>
         
       </ul>
@@ -45,6 +45,7 @@
       prevHeight: 0,
     };
   },
+  
   methods: {
     beforeLeave(element) {
       this.prevHeight = getComputedStyle(element).height;

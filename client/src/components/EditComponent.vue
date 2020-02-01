@@ -2,18 +2,18 @@
   <div>
     <h1>Edit Item</h1>
     <p class='text-muted'></p>
-    <form @submit.prevent="updatePost">
+    <form @submit.prevent="updateRecipe">
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label>Item Title: </label>
-            <input type="text" class="form-control" v-model="post.title">
+            <input type="text" class="form-control" v-model="recipe.title">
           </div>
         </div>
             <div class="col-md-6">
           <div class="form-group">
             <label>Item _id: </label><p class='font-weight-light'>probably just never modify this :)</p>
-            <input type="text" class="form-control" v-model="post._id">
+            <input type="text" class="form-control" v-model="recipe._id">
           </div>
         </div>
         </div>
@@ -21,8 +21,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label>Post Body: </label>
-              <textarea class="form-control" v-model="post.body" rows="5"></textarea>
+              <label>recipe Body: </label>
+              <textarea class="form-control" v-model="recipe.body" rows="5"></textarea>
             </div>
           </div>
         </div><br />
@@ -37,19 +37,19 @@
     export default {
       data() {
         return {
-          post: {}
+          recipe: {}
         }
       },
       created() {
-        let uri = `http://localhost:4000/posts/edit/${this.$route.params.id}`;
+        let uri = `http://73.240.171.135:65501/recipes/edit/${this.$route.params.id}`;
         this.axios.get(uri).then((response) => {
-            this.post = response.data;
+            this.recipe = response.data;
         });
       },
       methods: {
-        updatePost() {
-          let uri = `http://localhost:4000/posts/update/${this.$route.params.id}`;
-          this.axios.post(uri, this.post).then(() => {
+        updateRecipe() {
+          let uri = `http://73.240.171.135:65501/posts/update/${this.$route.params.id}`;
+          this.axios.post(uri, this.recipe).then(() => {
             this.$router.push({name: 'posts'});
           });
         }

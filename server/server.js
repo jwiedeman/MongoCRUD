@@ -3,11 +3,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const PORT = 4000;
+const PORT = 65501;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
-const postRoute = require('./post.route');
+const recipeRoute = require('./recipe.route');
 
 
 mongoose.set('useNewUrlParser', true);
@@ -21,11 +21,12 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 );
 
 
+
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use('/posts', postRoute);
+app.use('/recipe', recipeRoute);
 
 app.listen(PORT, function(){
   console.log('Server is running on Port:',PORT);

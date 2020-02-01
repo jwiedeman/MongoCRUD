@@ -4,25 +4,41 @@
     <div>
         <h1>Create An Item</h1>
         
-        <form class="needs-validation" novalidate @submit.prevent="addPost">
-          <button v-on:click="validateForm()">GenSome</button><button v-on:click="validateForm()">Test Validation</button>
+        <form class="needs-validation" novalidate @submit.prevent="addRecipe">
+          <button>GenSome</button><button v-on:click="validateForm()">Test Validation</button>
         <hr>
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <input type="text" class="form-control" id="validationCustom01" placeholder="Item title" value="Mark" required v-model="post.title">
+                    <input type="text" class="form-control" id="validationCustom01" placeholder="Recipe name" value="Mark" required v-model="recipe.name" >
                     <div class="valid-feedback">
                         Looks good!
                     </div>
                     <div class="invalid-feedback">
-                        Enter a value or mongo will kobain itself, please.
+                        Enter a value please. 
                     </div>
                 </div>
             </div>
+            
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <input type="text" class="form-control" id="validationCustom03" placeholder="Item Body" v-model="post.body">
+                    <input class="form-control" id="validationCustom03" placeholder="Recipe Ingredients" v-model="recipe.ingredients" required>
                     <div class="valid-feedback">
-                        optional
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Enter a value please.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" id="validationCustom03" placeholder="Recipe Instructions" v-model="recipe.instructions" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Enter a value please.
                     </div>
                 </div>
             </div>
@@ -51,29 +67,25 @@
 export default {
     data() {
         return {
-            post: {
-                title: '',
-                body: ''
+            recipe: {
+                name: '',
+                ingredients: [''],
+                instructions:['']
             }
         }
     },
     methods: {
-        addPost() {
-            let uri = 'http://localhost:4000/posts/add';
-            console.log(this.post)
-            this.post != {} ? this.axios.post(uri, this.post) : console.log('I require data')
-            this.post = {
-                title: '',
-                body: ''
+        addRecipe() {
+            let uri = 'http://73.240.171.135:65501/recipe/add';
+            this.recipe != {} ? this.axios.post(uri, this.recipe) : console.log('I require data')
+            this.recipe = {
+                name: '',
+                ingredients: [''],
+                instructions:['']
             }
         },
         validateForm() {
-
-
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
             var validation = Array.prototype.filter.call(forms, function(form) {
                 form.addEventListener('submit', function(event) {
                     if (form.checkValidity() === false) {
@@ -83,11 +95,8 @@ export default {
                     form.classList.add('was-validated');
                 }, false);
             });
-
-
         }
     },
-
 }
 </script>
 
