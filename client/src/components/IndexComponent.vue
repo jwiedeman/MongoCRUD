@@ -12,11 +12,12 @@
                     <input class='form-control form-control-sm  w-75' placeholder="Search Items" type="text" v-model="search" @input="onChange" @keydown.enter="onEnter" /> <br>
                     <p> Only show if ingredients are in stock <br>
                     <input type="checkbox"  v-model="only_in_stock_check" @input="onChange" @click="only_in_stock_check = !only_in_stock_check" > : {{ only_in_stock_check }}</p>
+                    
                 </form> 
             </div>
         </div>
         <table class="table table-hover table-bordered table-sm">
-            <caption>List of _</caption>
+            <caption>List of Recipes</caption>
             <thead>
                 <tr>
                     <th scope="col">Item</th>
@@ -54,7 +55,7 @@
             </div>
         </div>
           <table class="table table-hover table-bordered table-sm">
-            <caption>List of _</caption>
+            <caption>List of Ingredients</caption>
             <thead>
                 <tr>
                     <th scope="col">Index</th>

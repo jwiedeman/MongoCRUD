@@ -21,7 +21,8 @@
             
             <div class="form-row">
                 <div class="col-md-4 mb-3">
-                    <input class="form-control" id="validationCustom03" placeholder="Recipe Ingredients" v-model="recipe.ingredients" required>
+                    <input class="form-control" id="validationCustom03" placeholder="Add an ingredient then click enter to add to list" v-model='recipe.ingredients' required>
+                    
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -43,6 +44,7 @@
                 </div>
             </div>
             <button class="btn btn-primary" type="submit" v-on:click="validateForm()">Submit form</button>
+            {{recipe}}
         </form>
 
     </div>
@@ -67,14 +69,21 @@
 export default {
     data() {
         return {
+            new_recipe_temp_ingredient:'',
+            new_recipe_ingredient_buffer:[],
             recipe: {
                 name: '',
-                ingredients: [''],
+                ingredients: [],
                 instructions:['']
             }
         }
     },
     methods: {
+        pushNew(input){
+            input = input.toLowerCase().trim()
+            this.recipe.ingredients.push(input)
+            console.log(this.recipe.ingredients, input)
+        },
         addRecipe() {
             let uri = 'http://73.240.171.135:65501/recipe/add';
             this.recipe != {} ? this.axios.post(uri, this.recipe) : console.log('I require data')
