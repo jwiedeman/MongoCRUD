@@ -31,8 +31,8 @@ const routes = [
       component: CreateComponent
   },
   {
-      name: 'posts',
-      path: '/posts',
+      name: 'clients',
+      path: '/clients',
       component: IndexComponent
   },
   {

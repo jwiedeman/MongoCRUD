@@ -1,15 +1,15 @@
 const express = require('express');
-const postRoutes = express.Router();
+const clientRoutes = express.Router();
 
-// Require Post model in our routes module
-let Post = require('./post.model');
+// Require client model in our routes module
+let Client = require('./client.model');
 
 
 
 // CREATE 
-postRoutes.route('/add').post(function (req, res) {
-  let post = new Post(req.body);
-  post.save()
+clientRoutes.route('/add').post(function (req, res) {
+  let client = new Client(req.body);
+  client.save()
     .then(() => {
       res.status(200).json({'business': 'business in added successfully'});
     })
@@ -21,47 +21,47 @@ postRoutes.route('/add').post(function (req, res) {
 
 
 // READ
-postRoutes.route('/').get(function (req, res) {
-    Post.find(function(err, posts){
+clientRoutes.route('/').get(function (req, res) {
+    Client.find(function(err, clients){
     if(err){
       res.json(err);
     }
     else {
-      res.json(posts);
+      res.json(clients);
     }
   });
 });
 
 
 // READ
-postRoutes.route('/dbdump').get(function (req, res) {
-  Post.find({}, function (err, docs) {
+clientRoutes.route('/dbdump').get(function (req, res) {
+  Client.find({}, function (err, docs) {
     res.json(docs);
  });
 });
 
 
 // Route to edit
-postRoutes.route('/edit/:id').get(function (req, res) {
+clientRoutes.route('/edit/:id').get(function (req, res) {
   let id = req.params.id;
-  Post.findById(id, function (err, post){
+  Client.findById(id, function (err, client){
       if(err) {
         res.json(err);
       }
-      res.json(post);
+      res.json(client);
   });
 });
 
 
 //  UPDATE
-postRoutes.route('/update/:id').post(function (req, res) {
-    Post.findById(req.params.id, function(err, post) {
-    if (!post)
+clientRoutes.route('/update/:id').post(function (req, res) {
+    Client.findById(req.params.id, function(err, client) {
+    if (!client)
       res.status(404).send("data is not found");
     else {
-        post.title = req.body.title;
-        post.body = req.body.body;
-        post.save().then(() => {
+        client.title = req.body.title;
+        client.body = req.body.body;
+        client.save().then(() => {
           res.json('Update complete');
       })
       .catch(() => {
@@ -72,16 +72,16 @@ postRoutes.route('/update/:id').post(function (req, res) {
 });
 
 // DELETE
-postRoutes.route('/delete/:id').delete(function (req, res) {
-    Post.findByIdAndRemove({_id: req.params.id}, function(err){
+clientRoutes.route('/delete/:id').delete(function (req, res) {
+    Client.findByIdAndRemove({_id: req.params.id}, function(err){
         if(err) res.json(err);
-        Post.find(function(err, posts){
+        client.find(function(err, clients){
           if(err) res.json(err);
-          else res.json(posts);
+          else res.json(clients);
         });
     });
 });
 
 
 
-module.exports = postRoutes;
+module.exports = clientRoutes;

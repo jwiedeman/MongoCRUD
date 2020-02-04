@@ -5,10 +5,10 @@
     <nav class="navbar navbar-expand-sm bg-dark ">
       <ul class="navbar-nav">
         <li class=" btn btn-secondary ">
-          <router-link to="/" class="nav-link text-light">DB Items</router-link>
+          <router-link to="/" class="nav-link text-light">Clients</router-link>
         </li>
         <li class=" btn btn-secondary">
-          <router-link to="/create" class="nav-link text-light">Create Item</router-link>
+          <router-link to="/create" class="nav-link text-light">Add Client</router-link>
         </li>
         
       </ul>

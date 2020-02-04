@@ -1,25 +1,18 @@
 <template>
     <div :key="componentKey">
     
-        <h1>Items</h1>
+        <h1>Clients</h1>
         <div class="row">
     
             <div class="col-md-10">
                 <form class="form-inline md-form form-sm mt-0">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-    
-                    <input class='form-control form-control-sm ml-3 w-75' placeholder="Search Items" type="text" v-model="search" @input="onChange" @keydown.enter="onEnter" />
-    
+                    <input class='form-control form-control-sm w-50' placeholder="Search Clients . . ." type="text" v-model="search" @input="onChange" @keydown.enter="onEnter" />
                 </form>
             </div>
-    
-        </div><br />
-    
-    
-    
-    
+        </div>
+
         <table class="table table-hover table-bordered table-sm">
-            <caption>List of _</caption>
+            <caption>List of Clients</caption>
             <thead>
                 <tr>
                     <th scope="col">Item</th>
@@ -31,18 +24,18 @@
                 </tr>
             </thead>
             <tbody>
-                <template v-for="(post) in filtered_posts">
-                        <tr  :key="post._id" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
-                          <td>{{ post.title }}</td>
-                          <td>{{post._id}}</td>
-                          <td>{{ post.body }}</td>
-                          <td><router-link :to="{name: 'edit', params: { id: post._id }}" class="btn btn-sm btn-dark">Edit</router-link></td>
-                          <td ><button class=" btn btn-sm btn-danger" @click.prevent="deletePost(post._id)">Delete</button></td>
-                          <td><button class=" btn btn-sm btn-dark" @click="toggle(post._id)" :class="{ opened: opened.includes(post._id) }">View Data</button></td>
+                <template v-for="(client) in filtered_clients">
+                        <tr  :key="client._id" data-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapse2">
+                          <td>{{ client.title }}</td>
+                          <td>{{client._id}}</td>
+                          <td>{{ client.body }}</td>
+                          <td><router-link :to="{name: 'edit', params: { id: client._id }}" class="btn btn-sm btn-dark">Edit</router-link></td>
+                          <td ><button class=" btn btn-sm btn-danger" @click.prevent="deleteClient(client._id)">Delete</button></td>
+                          <td><button class=" btn btn-sm btn-dark" @click="toggle(client._id)" :class="{ opened: opened.includes(client._id) }">View Data</button></td>
                         </tr>
                       
-                        <tr class='bg-light ' v-if="opened.includes(post._id)" :key="post._id">
-                          <td colspan="6">{{post}}</td>
+                        <tr class='bg-light ' v-if="opened.includes(client._id)" :key="client._id">
+                          <td colspan="6">{{client}}</td>
                         </tr>
 </template>
             </tbody>
@@ -55,9 +48,9 @@
 export default {
     data() {
         return {
-            posts: [],
+            clients: [],
             search: '',
-            filtered_posts: [],
+            filtered_clients: [],
             componentKey: 0,
             isLoading: false,
             arrowCounter: 0,
@@ -65,9 +58,9 @@ export default {
         }
     },
     created() {
-        let uri = 'http://localhost:4000/posts';
+        let uri = 'http://localhost:4000/clients';
         this.axios.get(uri).then(response => {
-            this.posts = response.data;
+            this.clients = response.data;
             this.onChange();
         });
     },
@@ -99,16 +92,16 @@ export default {
         },
         filterResults() {
             // first uncapitalize all the things
-            this.filtered_posts = this.posts.filter((item) => {
+            this.filtered_clients = this.clients.filter((item) => {
                 return item.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
             });
         },
         setResult(result) {
-            this.search = filtered_posts;
+            this.search = filtered_clients;
             this.isOpen = false;
         },
         onArrowDown(evt) {
-            if (this.arrowCounter < this.filtered_posts.length) {
+            if (this.arrowCounter < this.filtered_clients.length) {
                 this.arrowCounter = this.arrowCounter + 1;
             }
         },
@@ -118,7 +111,7 @@ export default {
             }
         },
         onEnter() {
-            this.search = this.filtered_posts[this.arrowCounter];
+            this.search = this.filtered_clients[this.arrowCounter];
             this.isOpen = false;
             this.arrowCounter = -1;
         },
@@ -128,23 +121,23 @@ export default {
                 this.arrowCounter = -1;
             }
         },
-        deletePost(id) {
-            let uri = `http://localhost:4000/posts/delete/${id}`;
+        deleteClient(id) {
+            let uri = `http://localhost:4000/clients/delete/${id}`;
             this.axios.delete(uri).then(response => {
-                // redownload and replace the posts obj like a fucking sane human being
-                this.posts = []
-                this.filtered_posts = []
-                this.posts = response.data;
+                // redownload and replace the clients obj like a fucking sane human being
+                this.clients = []
+                this.filtered_clients = []
+                this.clients = response.data;
                 this.onChange()
             }).then(this.filterResults()) // refill the sorted list, then rerender
-            console.log(this.posts, this.filtered_posts)
+            console.log(this.clients, this.filtered_clients)
         }
     },
     watch: {
         items: function(val, oldValue) {
             // actually compare them
             if (val.length !== oldValue.length) {
-                this.filtered_posts = val;
+                this.filtered_clients = val;
                 this.isLoading = false;
             }
         },
